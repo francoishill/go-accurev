@@ -105,9 +105,9 @@ func getHtmlLineFromDiffRecord(dr *difflib.DiffRecord) string {
 	return getHtmlForCodeLine(html.EscapeString(dr.Payload), cssClass)
 }
 
-func GetElementDiffBetweenVersions(elementId, oldVersion, newVersion string) *ElementDiff {
-	oldContent := Cat_WithElementIDAndVersion(elementId, oldVersion)
-	newContent := Cat_WithElementIDAndVersion(elementId, newVersion)
+func GetElementDiffBetweenVersions(depotName, elementId, oldVersion, newVersion string) *ElementDiff {
+	oldContent := Cat_WithElementIDAndVersion(depotName, elementId, oldVersion)
+	newContent := Cat_WithElementIDAndVersion(depotName, elementId, newVersion)
 	diffRecords := difflib.Diff(strings.Split(oldContent, "\n"), strings.Split(newContent, "\n"))
 
 	diffRecordPointers := []*difflib.DiffRecord{}

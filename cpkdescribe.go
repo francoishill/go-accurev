@@ -20,12 +20,8 @@ type CpkDescribeElement struct {
 	ElemType          string `xml:"elemType,attr"`
 }
 
-func (c *CpkDescribeElement) GetDiff() *ElementDiff {
-	return GetElementDiffBetweenVersions(c.Id, c.BasisVersion, c.RealVersion)
-}
-
-func CpkDescribe_WithIssueNumber(issueNumber string) *CpkDescribeXml {
-	xmlOutputBytes := mustRunAccurevCommand("cpkdescribe", "-fx", "-p", "RedJeep", "-I", issueNumber)
+func CpkDescribe_WithIssueNumber(depotName, issueNumber string) *CpkDescribeXml {
+	xmlOutputBytes := mustRunAccurevCommand("cpkdescribe", "-fx", "-p", depotName, "-I", issueNumber)
 
 	x := &CpkDescribeXml{}
 	mustUnmarshalXml(xmlOutputBytes, x)
