@@ -11,6 +11,30 @@ type ElementDiff struct {
 	diffRecords []*difflib.DiffRecord
 }
 
+func (e *ElementDiff) TotalLineCount() int {
+	return len(e.diffRecords)
+}
+
+func (e *ElementDiff) TotalLinesDeletedCount() int {
+	count := 0
+	for _, dr := range e.diffRecords {
+		if dr.Delta.String() == "-" {
+			count++
+		}
+	}
+	return count
+}
+
+func (e *ElementDiff) TotalLinesAddedCount() int {
+	count := 0
+	for _, dr := range e.diffRecords {
+		if dr.Delta.String() == "+" {
+			count++
+		}
+	}
+	return count
+}
+
 func (e *ElementDiff) ToHTML() string {
 	htmlLines := []string{}
 	for _, dr := range e.diffRecords {
